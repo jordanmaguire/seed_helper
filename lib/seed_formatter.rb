@@ -17,7 +17,7 @@ module SeedFormatter
     #   # outputs "!!! Some error" in red text
     #
     def output message, options
-      puts "#{options[:prefix]}#{message}#{options[:suffix]}".send(optoins[color])
+      puts "#{options[:prefix]}#{message}#{options[:suffix]}".send(options[:color])
     end
     
     # A preset formatter with overridable options
