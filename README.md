@@ -35,7 +35,7 @@ I find this to be the neatest way to write Seed files.
 
 ## Example: Output
 
-SeedFormatter provides four methods of putting output:
+SeedFormatter provides four methods of showing output:
 
 - `message`: A general purpose message, generally used as a header. White by default.
 - `success`: Indicates a seed function was successful. Green by default.
@@ -67,5 +67,40 @@ class Seed
 end
 ```
 
+## Example: Overriding the display of output
 
+You can override the display of output with the following options:
+
+- `:prefix`: Pass in a string to prefix the output. 
+- `:suffix`: Pass in a string to suffix the output. 
+- `:color`: Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).  
+
+So, there are three methods of customizing the output of SeedFormatter.
+
+1: Pass in the options
+
+```ruby
+success "I did it…they're all trees", {:prefix => "!!!", :suffix => "'''", :color => :magenta}
+```
+
+Which will yield the string `!!!I did it…they're all trees'''` in magenta.
+
+2: Override the default function in your file or similarly,
+3: Write your own
+
+```ruby
+def success message, options={}
+  options[:prefix] ||= "!!!"
+  options[:suffix] ||= "'''"
+  options[:color]  ||= :magenta
+  output message, options
+end
+
+def my_custom_output message, options={}
+  options[:prefix] ||= "> "
+  options[:suffix] ||= " <"
+  options[:color]  ||= :yellow
+  output message, options
+end
+```
 
