@@ -37,10 +37,10 @@ I find this to be the neatest way to write Seed files.
 
 SeedFormatter provides four methods of showing output:
 
-- `message`: A general purpose message, generally used as a header. White by default.
-- `success`: Indicates a seed function was successful. Green by default.
-- `error`: Indicates a seed function has failed. Red by default.
-- `spacer`: Just to add a single space to separate groups of functionality.
+- `message` A general purpose message, generally used as a header. White by default.
+- `success` Indicates a seed function was successful. Green by default.
+- `error` Indicates a seed function has failed. Red by default.
+- `spacer` Just to add a single space to separate groups of functionality.
 
 Using these functions is straight forward (if we use the above example):
 
@@ -71,9 +71,9 @@ end
 
 You can override the display of output with the following options:
 
-- `:prefix`: Pass in a string to prefix the output. 
-- `:suffix`: Pass in a string to suffix the output. 
-- `:color`: Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).  
+- `:prefix` Pass in a string to prefix the output. 
+- `:suffix` Pass in a string to suffix the output. 
+- `:color` Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).  
 
 So, there are three methods of customizing the output of SeedFormatter.
 
@@ -86,6 +86,7 @@ success "I did it…they're all trees", {:prefix => "!!!", :suffix => "'''", :co
 Which will yield the string `!!!I did it…they're all trees'''` in magenta.
 
 2: Override the default function in your file or similarly,
+
 3: Write your own
 
 ```ruby
