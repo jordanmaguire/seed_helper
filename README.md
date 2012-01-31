@@ -42,7 +42,7 @@ SeedFormatter provides four methods of showing output:
 - `error` Indicates a seed function has failed. Red by default.
 - `spacer` Just to add a single space to separate groups of functionality.
 
-Using these functions is straight forward (if we use the above example):
+Using these functions is straight forward (if we use the above example Seed file layout):
 
 ```ruby
 class Seed
