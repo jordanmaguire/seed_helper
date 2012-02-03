@@ -105,3 +105,35 @@ def my_custom_output message, options={}
 end
 ```
 
+## Example: Parsing yaml file
+
+SeedFormatter provides a function for parsing [YAML files](http://www.yaml.org/spec/1.2/spec.html).
+
+The function `load_yaml_file` accepts a single argument `path` that is the path to a .yml file.
+
+`load_yaml_file` also accepts a block that takes an argument `hash` representing the contents of each YAML structure in the .yml file.
+
+For example, a .yml file that has a structure such as:
+
+```YAML
+-
+  something: "Other Thing"
+  ruby: "Programming Language"
+  readme: "Time Consuming"
+```
+
+will yield a hash as such:
+
+```ruby
+hash # {:something => "Other Thing", :ruby => "Programming Language", :readme => "Time Consuming"
+```
+
+As an example, if you wanted to print the contents of each structure in a .yml file you could call:
+
+```ruby
+load_yaml_file file_path do |hash|
+  puts hash
+end
+```
+
+This will iterate over each structure in the .yml file and call the block passed through on each structure.
