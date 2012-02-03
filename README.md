@@ -125,7 +125,7 @@ For example, a .yml file that has a structure such as:
 will yield a hash as such:
 
 ```ruby
-{:something => "Other Thing", :ruby => "Programming Language", :readme => "Time Consuming"
+{:something => "Other Thing", :ruby => "Programming Language", :readme => "Time Consuming"}
 ```
 
 As an example, if you wanted to print the contents of each structure in a .yml file you could call:
