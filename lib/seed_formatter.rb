@@ -1,5 +1,6 @@
 require "seed_formatter/version"
 require "colored"
+require "active_support/core_ext/hash/indifferent_access"
 
 module SeedFormatter
   
@@ -51,7 +52,7 @@ module SeedFormatter
     begin
       items = YAML::load(File.read(path))
       items.each do |hash|
-        yield(hash)
+        yield(hash.with_indifferent_access)
       end
     rescue
       error "Unable to load YAML file #{path}, exception: #{$!}"
