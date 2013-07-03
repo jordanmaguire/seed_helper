@@ -1,1 +1,1 @@
-rvm use tfg@seed_formatter --create
+rvm use 1.9.3-p392@seed_formatter --create

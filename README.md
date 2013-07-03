@@ -24,7 +24,7 @@ class Seed
     def create_admin_user
       # create an admin user here
     end
-  end  
+  end
 end
 
 Seed.create_categories
@@ -53,7 +53,7 @@ class Seed
       message "Creating some categories"
 
       ["Sedan", "SUV", "Hatchback"].each do |category_name|
-        category = Category.create :name => category_name        
+        category = Category.create :name => category_name
         if category.valid?
           success "Created #{category_name}"
         else
@@ -71,9 +71,9 @@ end
 
 You can override the display of output with the following options:
 
-- `:prefix` Pass in a string to prefix the output. 
-- `:suffix` Pass in a string to suffix the output. 
-- `:color` Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).  
+- `:prefix` Pass in a string to prefix the output.
+- `:suffix` Pass in a string to suffix the output.
+- `:color` Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).
 
 So, there are three methods of customizing the output of SeedFormatter.
 
@@ -104,36 +104,3 @@ def my_custom_output message, options={}
   output message, options
 end
 ```
-
-## Example: Parsing yaml file
-
-SeedFormatter provides a function for parsing [YAML files](http://www.yaml.org/spec/1.2/spec.html).
-
-The function `load_yaml_file` accepts a single argument `path` that is the path to a .yml file.
-
-`load_yaml_file` also accepts a block that provides an argument `hash` representing the contents of each YAML structure in the .yml file.
-
-For example, a .yml file that has a structure such as:
-
-```YAML
--
-  something: "Other Thing"
-  ruby: "Programming Language"
-  readme: "Time Consuming"
-```
-
-will yield a hash as such:
-
-```ruby
-{:something => "Other Thing", :ruby => "Programming Language", :readme => "Time Consuming"}
-```
-
-As an example, if you wanted to print the contents of each structure in a .yml file you could call:
-
-```ruby
-load_yaml_file file_path do |hash|
-  puts hash
-end
-```
-
-This will call the block passed through on each structure in the .yml file

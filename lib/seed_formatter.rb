@@ -1,9 +1,8 @@
 require "seed_formatter/version"
 require "colored"
-require "active_support/core_ext/hash/indifferent_access"
 
 module SeedFormatter
-  
+
   # Outputs a message with a set of given options
   #
   # @param [String] message: The message to format
@@ -15,47 +14,34 @@ module SeedFormatter
   # @example Print out an error message
   #   SeedFormatter.output "Some error", {:prefix => "!!! ", :color => :red}
   #   # outputs "!!! Some error" in red text
-  def output message, options = {}
+  def output(message, options = {})
     options[:color] ||= :white
     $stdout.puts "#{options[:prefix]}#{message}#{options[:suffix]}".send(options[:color])
   end
-  
+
   # A preset formatter with overridable options
-  def message message, options = {}
+  def message(message, options = {})
     options[:prefix] ||= "*** "
     options[:color] ||= :white
     output message, options
   end
-  
+
   # A preset formatter with overridable options
-  def success message, options = {}
+  def success(message, options = {})
     options[:prefix] ||= "  + "
     options[:color] ||= :green
     output message, options
   end
-  
+
   # A preset formatter with overridable options
-  def error message, options = {}
+  def error(message, options = {})
     options[:prefix] ||= "  - "
     options[:color] ||= :red
     output message, options
   end
-  
+
   def spacer
     $stdout.puts ""
   end
 
-  # Allows you to run a block on each section of a .yml file.
-  #
-  # @param [String] path: The full path of the .yml file
-  def load_yaml_file path
-    begin
-      items = YAML::load(File.read(path))
-      items.each do |hash|
-        yield(hash.with_indifferent_access)
-      end
-    rescue
-      error "Unable to load YAML file #{path}, exception: #{$!}"
-    end
-  end
 end

@@ -5,14 +5,14 @@ class TestClass
 end
 
 describe SeedFormatter do
-  
+
   let(:tc) { TestClass.new }
-  
+
   describe '#output' do
     subject { tc.output message, options }
     let(:message) { "message" }
     let(:options) { {} }
-    
+
     context 'options[:prefix] is provided' do
       let(:options) { {:prefix => "a prefix "} }
       it "prefixes the message with options[:prefix]" do
@@ -42,7 +42,7 @@ describe SeedFormatter do
       end
     end
   end
-  
+
   describe '#message' do
     subject { tc.message message, options }
     let(:message) { "message" }
@@ -76,7 +76,7 @@ describe SeedFormatter do
       end
     end
   end
-  
+
   describe '#success' do
     subject { tc.success message, options }
     let(:message) { "message" }
@@ -110,7 +110,7 @@ describe SeedFormatter do
       end
     end
   end
-  
+
   describe '#error' do
     subject { tc.error message, options }
     let(:message) { "message" }
@@ -144,7 +144,7 @@ describe SeedFormatter do
       end
     end
   end
-  
+
   describe '#spacer' do
     subject { tc.spacer }
     it 'prints a blank line' do
@@ -152,23 +152,5 @@ describe SeedFormatter do
       subject
     end
   end
-  
-  describe '#load_yaml_file' do
-    context 'valid .yml file' do
-      it 'allows a block to process the contents of each section in the .yml file' do
-        tc.load_yaml_file File.join(Dir.pwd, "spec", "support", "yml", "spec.yml") do |hash|
-          hash["tautology"].should == "tautology"
-        end
-      end
-    end
-    context 'invalid file' do
-      it 'prints out an error' do
-        tc.should_receive(:error)
-        tc.load_yaml_file File.join(Dir.pwd, "spec", "support", "yml", "nothing.yml") do |hash|
-          # Nothing
-        end
-      end
-    end
-  end
-  
+
 end
