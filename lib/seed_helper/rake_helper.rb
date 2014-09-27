@@ -1,6 +1,6 @@
 module SeedHelper::RakeHelper
 
-  def self.create_seed_task(task_name, dependencies=[], &task)
+  def create_seed_task(task_name, dependencies=[], &task)
     namespace :db do
       namespace :seed do
         desc "Creating #{task_name.to_s.humanize}"

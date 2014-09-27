@@ -6,7 +6,7 @@ This is a README for working on SeedHelper
 
 ```
 gem build seed_helper.gemspec
-gem install ./seed_helper-1.0.0.gem
+gem install ./seed_helper-1.0.1.gem
 ```
 
 ## Running
