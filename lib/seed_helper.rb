@@ -26,10 +26,15 @@ module SeedHelper
 private
 
   def find_resource(resource_class, attributes)
-    # Can't search for password
     cloned_attributes = attributes.dup
-    cloned_attributes.delete(:password)
-    cloned_attributes.delete(:password_confirmation)
+    cloned_attributes.delete_if do |key, value|
+      # Can't search for password
+      [:password, :password_confirmation].include?(key) ||
+      # Times are bad for searches
+      value.kind_of?(Time) ||
+      value.kind_of?(Date)
+    end
+    debugger
     # Rails 4
     if resource_class.respond_to?(:find_by)
       return resource_class.find_by(cloned_attributes)
