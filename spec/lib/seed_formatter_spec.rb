@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 class TestClass
-  include SeedFormatter
+  include SeedHelper
 end
 
-describe SeedFormatter do
+describe SeedHelper do
 
   let(:tc) { TestClass.new }
 

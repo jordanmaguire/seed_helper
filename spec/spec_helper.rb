@@ -1,4 +1,4 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'seed_formatter'
+require 'seed_helper'

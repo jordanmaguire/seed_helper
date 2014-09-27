@@ -1,14 +1,14 @@
-# SeedFormatter
+# SeedHelper
 
-SeedFormatter is a small gem I created while I was working on various projects with terrible, terrible Seed files.
+SeedHelper is a small gem I created while I was working on various projects with terrible, terrible Seed files.
 
 ## Purpose
 
-The goal of SeedFormatter is to provide some commonly required functionality to be used in Seed files.
+The goal of SeedHelper is to provide some commonly required functionality to be used in Seed files.
 
 ## Dependencies
 
-SeedFormatter uses the [colored](https://github.com/defunkt/colored) gem to present output.
+SeedHelper uses the [colored](https://github.com/defunkt/colored) gem to present output.
 
 ## Example: Seed file layout
 
@@ -35,7 +35,7 @@ I find this to be the neatest way to write Seed files.
 
 ## Example: Output
 
-SeedFormatter provides four methods of showing output:
+SeedHelper provides four methods of showing output:
 
 - `message` A general purpose message, generally used as a header. White by default.
 - `success` Indicates a seed function was successful. Green by default.
@@ -47,7 +47,7 @@ Using these functions is straight forward (if we use the above example Seed file
 ```ruby
 class Seed
   class << self
-    include SeedFormatter
+    include SeedHelper
 
     def create_categories
       message "Creating some categories"
@@ -75,7 +75,7 @@ You can override the display of output with the following options:
 - `:suffix` Pass in a string to suffix the output.
 - `:color` Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).
 
-So, there are three methods of customizing the output of SeedFormatter.
+So, there are three methods of customizing the output of SeedHelper.
 
 1: Pass in the options
 

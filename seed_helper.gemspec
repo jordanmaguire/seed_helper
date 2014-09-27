@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "seed_formatter/version"
+require "seed_helper/version"
 
 Gem::Specification.new do |s|
-  s.name        = "seed_formatter"
-  s.version     = SeedFormatter::VERSION
+  s.name        = "seed_helper"
+  s.version     = SeedHelper::VERSION
   s.authors     = ["Jordan Maguire"]
-  s.email       = ["jmaguire@thefrontiergroup.com.au"]
-  s.homepage    = "https://github.com/jordanmaguire/seed_formatter"
-  s.summary     = "Easily format the output of your seeds and parse YAML files"
-  s.description = "Easily format the output of your seeds and parse YAML files"
+  s.email       = ["jordan@thefrontiergroup.com.au"]
+  s.homepage    = "https://github.com/jordanmaguire/seed_helper"
+  s.summary     = "Make seeding data easier in Rails projects"
+  s.description = "Make seeding data easier in Rails projects"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
