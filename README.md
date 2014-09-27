@@ -19,6 +19,8 @@ Using SeedHelper, a seed task might look like:
 ```ruby
 # in lib/tasks/seeds/create_roles.rake
 
+include SeedHelper
+
 create_seed_task(:create_roles) do
   
   ["Admin", "Regular"].each do |role_name|
@@ -33,6 +35,8 @@ create_seed_task(:create_roles) do
 end
 
 # in lib/tasks/seeds/create_users.rake
+
+include SeedHelper
 
 # Specify a dependency on roles, so that running this task will first
 # run the create_roles task
@@ -49,8 +53,6 @@ create_seed_task(:create_users, [:create_roles]) do
 
 end
 ```
-
-Keep in mind that the create_resource requires at least Rails 4.0.2 to run as it uses the `find_by` method.
 
 ## Example: Output
 
