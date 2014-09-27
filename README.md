@@ -1,106 +1,64 @@
 # SeedHelper
 
-SeedHelper is a small gem I created while I was working on various projects with terrible, terrible Seed files.
+SeedHelper is a small gem I created while I was working on various projects with terrible Seed files.
 
 ## Purpose
 
-The goal of SeedHelper is to provide some commonly required functionality to be used in Seed files.
+The goal of SeedHelper is to provide some commonly required functionality to make creating Seed files easier.
 
 ## Dependencies
 
 SeedHelper uses the [colored](https://github.com/defunkt/colored) gem to present output.
 
-## Example: Seed file layout
+## Example: Seed implementation
 
-I like my seed files to follow this format:
+I use rake tasks to create my seed data. That way you can easily run individual tasks for seeding specific pieces of data.
+
+Using SeedHelper, a seed task might look like:
 
 ```ruby
-class Seed
-  class << self
-    def create_categories
-      # create some categories here
-    end
+# in lib/tasks/seeds/create_roles.rake
 
-    def create_admin_user
-      # create an admin user here
-    end
+create_seed_task(:create_roles) do
+  
+  ["Admin", "Regular"].each do |role_name|
+
+    # Will print out a red message if Role fails to save
+    # Will print out a green message is Role succesfully creates
+    # Will print out a cyan message if Role already exists
+    role = create_resource(Role, {name: role_name})
+
   end
+
 end
 
-Seed.create_categories
-Seed.create_admin_user
+# in lib/tasks/seeds/create_users.rake
+
+# Specify a dependency on roles, so that running this task will first
+# run the create_roles task
+create_seed_task(:create_users, [:create_roles]) do
+  
+  [
+    ["admin@example.com", "Admin"]
+  ].each do |email, role_name|
+
+    role = Role.find_by(name: role_name)
+    admin = create_resource(User, {email: email})
+
+  end
+
+end
 ```
 
-I find this to be the neatest way to write Seed files.
+Keep in mind that the create_resource requires at least Rails 4.0.2 to run as it uses the `find_by` method.
 
 ## Example: Output
 
-SeedHelper provides four methods of showing output:
+SeedHelper provides multiple methods for showing output that can be used outside of the `create_resource` method:
 
 - `message` A general purpose message, generally used as a header. White by default.
 - `success` Indicates a seed function was successful. Green by default.
 - `error` Indicates a seed function has failed. Red by default.
-- `spacer` Just to add a single space to separate groups of functionality.
-
-Using these functions is straight forward (if we use the above example Seed file layout):
-
-```ruby
-class Seed
-  class << self
-    include SeedHelper
-
-    def create_categories
-      message "Creating some categories"
-
-      ["Sedan", "SUV", "Hatchback"].each do |category_name|
-        category = Category.create :name => category_name
-        if category.valid?
-          success "Created #{category_name}"
-        else
-          error "Failed to create #{category_name}. Errors: #{category.errors.full_messages}"
-        end
-      end
-
-      spacer
-    end
-  end
-end
-```
-
-## Example: Overriding the display of output
-
-You can override the display of output with the following options:
-
-- `:prefix` Pass in a string to prefix the output.
-- `:suffix` Pass in a string to suffix the output.
-- `:color` Pass in a symbol representing the color your want the ouput to be. The list of acceptable colors can be found in colored gem's [documentation](https://github.com/defunkt/colored/blob/master/lib/colored.rb).
-
-So, there are three methods of customizing the output of SeedHelper.
-
-1: Pass in the options
-
-```ruby
-success "I did it…they're all trees", {:prefix => "!!!", :suffix => "'''", :color => :magenta}
-```
-
-Which will yield the string `!!!I did it…they're all trees'''` in magenta.
-
-2: Override the default function in your file or similarly,
-
-3: Write your own
-
-```ruby
-def success message, options={}
-  options[:prefix] ||= "!!!"
-  options[:suffix] ||= "'''"
-  options[:color]  ||= :magenta
-  output message, options
-end
-
-def my_custom_output message, options={}
-  options[:prefix] ||= "> "
-  options[:suffix] ||= " <"
-  options[:color]  ||= :yellow
-  output message, options
-end
-```
+- `resource_already_exists` Indicates that the data already exists in the database.
+- `special_message` Show a purple multiline message. I use this to show logins for seed users.
+- `print_new_line` Just to add a single space to separate groups of functionality.

@@ -145,12 +145,4 @@ describe SeedHelper do
     end
   end
 
-  describe '#spacer' do
-    subject { tc.spacer }
-    it 'prints a blank line' do
-      $stdout.should_receive(:puts).with(/^$/)
-      subject
-    end
-  end
-
 end

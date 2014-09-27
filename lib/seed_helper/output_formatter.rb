@@ -16,25 +16,36 @@ module SeedHelper::OutputFormatter
     $stdout.puts "#{options[:prefix]}#{message}#{options[:suffix]}".send(options[:color])
   end
 
-  # A preset formatter with overridable options
   def message(message, options = {})
     options[:prefix] ||= "*** "
     options[:color] ||= :white
     output message, options
   end
 
-  # A preset formatter with overridable options
   def success(message, options = {})
     options[:prefix] ||= "  + "
     options[:color] ||= :green
     output message, options
   end
 
-  # A preset formatter with overridable options
   def error(message, options = {})
     options[:prefix] ||= "  - "
     options[:color] ||= :red
     output message, options
+  end
+
+  def resource_already_exists(resource)
+    message = "#{resource} already exists"
+
+    options = {}
+    options[:prefix] ||= "  > "
+    options[:color]  ||= :cyan
+    output(message, options)
+  end
+
+  def special_message(*lines)
+    $stdout.puts ""
+    $stdout.puts lines.join("\n  ").magenta
   end
 
   def print_new_line
