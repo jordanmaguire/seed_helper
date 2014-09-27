@@ -26,12 +26,16 @@ module SeedHelper
 private
 
   def find_resource(resource_class, attributes)
+    # Can't search for password
+    cloned_attributes = attributes.dup
+    cloned_attributes.delete(:password)
+    cloned_attributes.delete(:password_confirmation)
     # Rails 4
     if resource_class.respond_to?(:find_by)
-      return resource_class.find_by(attributes)
+      return resource_class.find_by(cloned_attributes)
     # Rails 3
     else
-      return resource_class.where(attributes).first
+      return resource_class.where(cloned_attributes).first
     end
   end
 
