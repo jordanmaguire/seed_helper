@@ -34,7 +34,6 @@ private
       value.kind_of?(Time) ||
       value.kind_of?(Date)
     end
-    debugger
     # Rails 4
     if resource_class.respond_to?(:find_by)
       return resource_class.find_by(cloned_attributes)
