@@ -13,8 +13,11 @@ gem install ./seed_helper-2.0.0.gem
 
 Get into `irb`.
 
-Run `require 'seed_helper'`
+Run 
 
-Now `include SeedHelper`
+```
+require 'seed_helper'
+include SeedHelper
+```
 
 Now you can use the functions in seed_helper.rb
