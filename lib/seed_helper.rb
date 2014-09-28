@@ -26,7 +26,8 @@ module SeedHelper
 private
 
   def find_resource(resource_class, attributes)
-    cloned_attributes = attributes.dup
+    # Remove symbols from attributes. They cause SQL to get mad.
+    cloned_attributes = Hash[ attributes.map { |k, v| [k, v.is_a?(Symbol) ? v.to_s : v] } ]
     cloned_attributes.delete_if do |key, value|
       # Can't search for password
       [:password, :password_confirmation].include?(key) ||
