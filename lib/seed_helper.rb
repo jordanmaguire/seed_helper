@@ -33,7 +33,9 @@ private
       [:password, :password_confirmation].include?(key) ||
       # Times are bad for searches
       value.kind_of?(Time) ||
-      value.kind_of?(Date)
+      value.kind_of?(Date) ||
+      # As are arrays
+      value.kind_of?(Array)
     end
     # Rails 4
     if resource_class.respond_to?(:find_by)
