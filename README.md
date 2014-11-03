@@ -47,7 +47,7 @@ create_seed_task(:create_users, [:create_roles]) do
   ].each do |email, role_name|
 
     role = Role.find_by(name: role_name)
-    admin = create_resource(User, {email: email})
+    admin = create_resource(User, {email: email, role: role})
 
   end
 
