@@ -48,8 +48,4 @@ module SeedHelper::OutputFormatter
     $stdout.puts lines.join("\n  ").magenta
   end
 
-  def print_new_line
-    $stdout.puts ""
-  end
-
 end

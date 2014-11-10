@@ -3,9 +3,9 @@ require 'seed_helper/version'
 require 'seed_helper/output_formatter'
 require 'seed_helper/rake_helper'
 
-module SeedHelper
-  include SeedHelper::OutputFormatter
-  include SeedHelper::RakeHelper 
+class SeedHelper
+  extend SeedHelper::OutputFormatter
+  extend SeedHelper::RakeHelper 
 
   def create_resource(resource_class, attributes)
     if resource = find_resource(resource_class, attributes)

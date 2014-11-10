@@ -19,16 +19,14 @@ Using SeedHelper, a seed task might look like:
 ```ruby
 # in lib/tasks/seeds/create_roles.rake
 
-include SeedHelper
-
-create_seed_task(:create_roles) do
+SeedHelper.create_seed_task(:create_roles) do
   
   ["Admin", "Regular"].each do |role_name|
 
     # Will print out a red message if Role fails to save
     # Will print out a green message is Role succesfully creates
     # Will print out a cyan message if Role already exists
-    role = create_resource(Role, {name: role_name})
+    role = SeedHelper.create_resource(Role, {name: role_name})
 
   end
 
@@ -40,14 +38,15 @@ include SeedHelper
 
 # Specify a dependency on roles, so that running this task will first
 # run the create_roles task
-create_seed_task(:create_users, [:create_roles]) do
+SeedHelper.create_seed_task(:create_users, [:create_roles]) do
   
   [
-    ["admin@example.com", "Admin"]
+    ["admin@example.com", Role.admin],
+    ["other_role@example.com", Role.other]
   ].each do |email, role_name|
 
     role = Role.find_by(name: role_name)
-    admin = create_resource(User, {email: email, role: role})
+    admin = SeedHelper.create_resource(User, {email: email, role: role})
 
   end
 
@@ -63,4 +62,3 @@ SeedHelper provides multiple methods for showing output that can be used outside
 - `error` Indicates a seed function has failed. Red by default.
 - `resource_already_exists` Indicates that the data already exists in the database.
 - `special_message` Show a purple multiline message. I use this to show logins for seed users.
-- `print_new_line` Just to add a single space to separate groups of functionality.
