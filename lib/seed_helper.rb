@@ -7,7 +7,7 @@ class SeedHelper
   extend SeedHelper::OutputFormatter
   extend SeedHelper::RakeHelper 
 
-  def create_resource(resource_class, attributes)
+  def self.create_resource(resource_class, attributes)
     if resource = find_resource(resource_class, attributes)
       resource_already_exists(resource)
     else
@@ -25,7 +25,7 @@ class SeedHelper
 
 private
 
-  def find_resource(resource_class, attributes)
+  def self.find_resource(resource_class, attributes)
     # Remove symbols from attributes. They cause SQL to get mad.
     cloned_attributes = Hash[ attributes.map { |k, v| [k, v.is_a?(Symbol) ? v.to_s : v] } ]
     cloned_attributes.delete_if do |key, value|
