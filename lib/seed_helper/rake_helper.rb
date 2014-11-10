@@ -1,4 +1,8 @@
+require 'rake'
+
 module SeedHelper::RakeHelper
+
+  include Rake::DSL
 
   def create_seed_task(task_name, dependencies=[], &task)
     namespace :db do
