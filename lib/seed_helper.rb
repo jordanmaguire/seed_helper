@@ -1,13 +1,12 @@
 require 'colored'
-require 'seed_helper/version'
 require 'seed_helper/output_formatter'
 require 'seed_helper/rake_helper'
 
 class SeedHelper
   extend SeedHelper::OutputFormatter
-  extend SeedHelper::RakeHelper 
+  extend SeedHelper::RakeHelper
 
-  def self.create_resource(resource_class, attributes)
+  def self.find_or_create_resource(resource_class, attributes)
     if resource = find_resource(resource_class, attributes)
       resource_already_exists(resource)
     else
