@@ -46,7 +46,7 @@ SeedHelper.create_seed_task(:create_users, [:create_roles]) do
   ].each do |email, role_name|
 
     role = Role.find_by(name: role_name)
-    admin = SeedHelper.create_resource(User, {email: email, role: role})
+    admin = SeedHelper.find_or_create_resource(User, {email: email, role: role})
 
   end
 
