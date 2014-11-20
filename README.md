@@ -62,3 +62,22 @@ SeedHelper provides multiple methods for showing output that can be used outside
 - `error` Indicates a seed function has failed. Red by default.
 - `resource_already_exists` Indicates that the data already exists in the database.
 - `special_message` Show a purple multiline message. I use this to show logins for seed users.
+
+## Example: Creating a rake task
+
+SeedHelper gives you an easy way to create consistently named rake tasks. Usage is as follows:
+
+```ruby
+# rake db:seed:task_name
+# :environment is automatically added as a dependency
+SeedHelper.create_seed_task(:task_name)
+
+# rake db:seed:second_task_name
+# Dependent on :task_name, rake db:seed:task_name will be run before :second_task_name
+SeedHelper.create_seed_task(:second_task_name, [:task_name])
+
+# rake db:seed:third_task_name
+# No dependencies (other than environment) but with a custom title. This will show up as
+# description of task in `rake -T` and will be printed to screen when task runs
+SeedHelper.create_seed_task(:third_task_name, [], "My sick name")
+```

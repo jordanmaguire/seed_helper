@@ -4,12 +4,13 @@ module SeedHelper::RakeHelper
 
   include Rake::DSL
 
-  def create_seed_task(task_name, dependencies=[], &task)
+  def create_seed_task(task_name, dependencies=[], title="", &task)
     namespace :db do
       namespace :seed do
-        desc "Creating #{task_name.to_s.humanize}"
+        seed_title = title.empty? ? "Creating #{task_name.to_s.humanize}" : title
+        desc(seed_title)
         task task_name => dependencies.append(:environment) do
-          message task_name.to_s.humanize
+          message title
 
           task.call
 
