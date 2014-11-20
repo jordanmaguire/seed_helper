@@ -12,15 +12,19 @@ class SeedHelper
       resource_already_exists(resource)
     else
       resource = resource_class.new(attributes)
-      if resource.save
-        message = "#{resource} successfully created"
-        success(message)
-      else
-        message = "#{resource} failed to create. Errors: #{resource.errors.full_messages}"
-        error(message)
-      end
+      create_resource(resource)
     end
     return resource
+  end
+
+  def self.create_resource(resource)
+    if resource.save
+      message = "#{resource} successfully created"
+      success(message)
+    else
+      message = "#{resource} failed to create. Errors: #{resource.errors.full_messages}"
+      error(message)
+    end
   end
 
 private
