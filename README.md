@@ -20,7 +20,7 @@ Using SeedHelper, a seed task might look like:
 # in lib/tasks/seeds/create_roles.rake
 
 SeedHelper.create_seed_task(:create_roles) do
-  
+
   ["Admin", "Regular"].each do |role_name|
 
     # Will print out a red message if Role fails to save
@@ -39,14 +39,14 @@ include SeedHelper
 # Specify a dependency on roles, so that running this task will first
 # run the create_roles task
 SeedHelper.create_seed_task(:create_users, [:create_roles]) do
-  
+
   [
     ["admin@example.com", Role.admin],
     ["other_role@example.com", Role.other]
   ].each do |email, role_name|
 
     role = Role.find_by(name: role_name)
-    admin = SeedHelper.find_or_create_resource(User, {email: email, role: role})
+    admin = SeedHelper.find_or_create_resource(User, {email: email, role: role_name})
 
   end
 
