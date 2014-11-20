@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
+require "seed_helper/version"
 
 Gem::Specification.new do |s|
   s.name        = "seed_helper"
-  s.version     = "1.2.0"
+  s.version     = SeedHelper::VERSION
   s.authors     = ["Jordan Maguire"]
   s.email       = ["jordan@thefrontiergroup.com.au"]
   s.homepage    = "https://github.com/jordanmaguire/seed_helper"
