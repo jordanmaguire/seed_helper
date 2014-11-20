@@ -18,13 +18,14 @@ class SeedHelper
   end
 
   def self.create_resource(resource)
-    if resource.save
+    if (did_save = resource.save)
       message = "#{resource} successfully created"
       success(message)
     else
       message = "#{resource} failed to create. Errors: #{resource.errors.full_messages}"
       error(message)
     end
+    did_save
   end
 
 private

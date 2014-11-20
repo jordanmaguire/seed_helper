@@ -10,7 +10,7 @@ module SeedHelper::RakeHelper
         seed_title = title.empty? ? "Creating #{task_name.to_s.humanize}" : title
         desc(seed_title)
         task task_name => dependencies.append(:environment) do
-          message title
+          message(seed_title)
 
           task.call
 
