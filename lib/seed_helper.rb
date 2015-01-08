@@ -1,4 +1,4 @@
-require 'colored'
+require 'colorize'
 require 'seed_helper/version'
 require 'seed_helper/output_formatter'
 require 'seed_helper/rake_helper'
