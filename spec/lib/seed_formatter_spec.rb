@@ -24,14 +24,14 @@ describe SeedHelper do
     context 'options[:color] is provided' do
       let(:options) { {:color => :blue} }
       it "prints the message with the provided color" do
-        expect($stdout).to receive(:puts).with("\e[34mmessage\e[0m")
+        expect($stdout).to receive(:puts).with("\e[0;34;49mmessage\e[0m")
         subject
       end
     end
     context 'options[:color] is not provided' do
       let(:options) { {:color => nil} }
       it "prints the message in white by default" do
-        expect($stdout).to receive(:puts).with("\e[37mmessage\e[0m")
+        expect($stdout).to receive(:puts).with("\e[0;37;49mmessage\e[0m")
         subject
       end
     end
