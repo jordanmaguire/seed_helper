@@ -13,7 +13,7 @@ gem install <gempath>
 
 Get into `irb`.
 
-Run 
+Run
 
 ```
 require 'seed_helper'

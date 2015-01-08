@@ -8,7 +8,7 @@ The goal of SeedHelper is to provide some commonly required functionality to mak
 
 ## Dependencies
 
-SeedHelper uses the [colored](https://github.com/defunkt/colored) gem to present output.
+SeedHelper uses the [colorize](https://github.com/fazibear/colorize) gem to present output.
 
 ## Example: Seed implementation
 
