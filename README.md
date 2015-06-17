@@ -53,6 +53,19 @@ SeedHelper.create_seed_task(:create_users, [:create_roles]) do
 end
 ```
 
+## Example: Using FactoryGirl
+
+If you don't want to provide specific attributes, you can use the `.bulk_create` function to do so. EG:
+
+```ruby
+# If MyClass.count > 0, an already created message will be shown
+# If MyClass.count == 0, the block will be run
+# If the block fails, you'll get a red error message with the exception printed out.
+SeedHelper.bulk_create(MyClass) do
+  FactoryGirl.create_list(:my_class, 5)
+end
+```
+
 ## Example: Output
 
 SeedHelper provides multiple methods for showing output that can be used outside of the `create_resource` method:
