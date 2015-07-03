@@ -40,7 +40,9 @@ private
       value.kind_of?(Time) ||
       value.kind_of?(Date) ||
       # As are arrays
-      value.kind_of?(Array)
+      value.kind_of?(Array) ||
+      # As are Files
+      value.kind_of?(File)
     end
     # Rails 4
     if resource_class.respond_to?(:find_by)
