@@ -26,7 +26,7 @@ SeedHelper.create_seed_task(:create_roles) do
     # Will print out a red message if Role fails to save
     # Will print out a green message is Role succesfully creates
     # Will print out a cyan message if Role already exists
-    role = SeedHelper.create_resource(Role, {name: role_name})
+    role = SeedHelper.find_or_create_resource(Role, {name: role_name})
 
   end
 
