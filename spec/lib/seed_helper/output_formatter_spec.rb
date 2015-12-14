@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SeedHelper do
 
   describe '#output' do
-    subject { SeedHelper.output message, options }
+    subject { SeedHelper.output(message, options) }
     let(:message) { "message" }
     let(:options) { {} }
 
@@ -38,7 +38,7 @@ describe SeedHelper do
   end
 
   describe '#message' do
-    subject { SeedHelper.message message, options }
+    subject { SeedHelper.message(message, options) }
     let(:message) { "message" }
     let(:options) { {:prefix => prefix, :color => color} }
     let(:prefix)  { nil }
@@ -72,7 +72,7 @@ describe SeedHelper do
   end
 
   describe '#success' do
-    subject { SeedHelper.success message, options }
+    subject { SeedHelper.success(message, options) }
     let(:message) { "message" }
     let(:options) { {:prefix => prefix, :color => color} }
     let(:prefix)  { nil }
@@ -106,7 +106,7 @@ describe SeedHelper do
   end
 
   describe '#error' do
-    subject { SeedHelper.error message, options }
+    subject { SeedHelper.error(message, options) }
     let(:message) { "message" }
     let(:options) { {:prefix => prefix, :color => color} }
     let(:prefix)  { nil }
