@@ -7,11 +7,22 @@ class SeedHelper
   extend SeedHelper::OutputFormatter
   extend SeedHelper::RakeHelper
 
-  def self.find_or_create_resource(resource_class, attributes)
-    if resource = find_resource(resource_class, attributes)
+  # If a resource_class with matching identifiable_attributes exists, return that user and present a
+  # resource_already_exists message.
+  #
+  # Otherwise, create a new instance of resource_class using the identifiable_attributes and
+  # additional_attributes.
+  #
+  # @param [Class] resource_class: The class to create the resource in. EG: User
+  # @param [Hash] identifiable_attributes: A hash of attributes and values that can be used to
+  #                                        identify the given resource. EG: {email: "jordan@example.com"}
+  # @param [Hash] additional_attributes: A hash of attributes and values that don't identify
+  #                                      the given resource, but should be assigned to the new resource.
+  def self.find_or_create_resource(resource_class, identifiable_attributes, additional_attributes={})
+    if resource = find_resource(resource_class, identifiable_attributes)
       resource_already_exists(resource)
     else
-      resource = resource_class.new(attributes)
+      resource = resource_class.new(identifiable_attributes.merge(additional_attributes))
       create_resource(resource)
     end
     return resource

@@ -53,6 +53,16 @@ SeedHelper.create_seed_task(:create_users, [:create_roles]) do
 end
 ```
 
+By default, the `.find_or_create_resource` method uses the hash you provide it to find a User with those attributes. It can then determine whether or not it needs to create a new User.
+
+This becomes problematic when we have a lot of fields, since we don't want to try and identify a User by some of those fields - password, for example.
+
+In that case, we can pass through a third argument of all those additional fields:
+
+```ruby
+SeedHelper.find_or_create_resource(User, {email: email}, {password: "password", role: role_name})
+```
+
 ## Example: Using FactoryGirl
 
 If you don't want to provide specific attributes, you can use the `.bulk_create` function to do so. EG:
