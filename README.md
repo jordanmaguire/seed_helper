@@ -26,7 +26,7 @@ SeedHelper.create_seed_task(:create_roles) do
     # Will print out a red message if Role fails to save
     # Will print out a green message is Role succesfully creates
     # Will print out a cyan message if Role already exists
-    role = SeedHelper.find_or_create_resource(Role, {name: role_name})
+    SeedHelper.find_or_create_resource(Role, {name: role_name})
 
   end
 
@@ -63,7 +63,22 @@ In that case, we can pass through a third argument of all those additional field
 SeedHelper.find_or_create_resource(User, {email: email}, {password: "password", role: role_name})
 ```
 
-## Example: Using FactoryGirl
+## Example: Using FactoryGirl for a single object
+
+Sometimes you'll want to create an object using FactoryGirl. You can pass a block to `.find_or_create_resource` to achieve this. EG:
+
+```ruby
+email = "admin@example.com"
+SeedHelper.find_or_create_resource(User, {email: email}) do
+  FactoryGirl.build(:user, :admin, :with_profile_picture, email: email, password: "Alligator8")
+end
+```
+
+This will return a User that matches {email: "admin@example.com"} (and print out a message saying the object already exists), or it will use the FG call to create a new object (and return a success message if the object returned is valid).
+
+NB: You should return an unpersisted object in this block.
+
+## Example: Using FactoryGirl for a collection of objects
 
 If you don't want to provide specific attributes, you can use the `.bulk_create` function to do so. EG:
 

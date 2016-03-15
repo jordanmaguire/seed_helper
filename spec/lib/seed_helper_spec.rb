@@ -6,6 +6,15 @@ describe SeedHelper do
     subject { SeedHelper.find_or_create_resource(User, {email: email}, additional_args) }
     let(:email) { "jordan@example.com" }
 
+    it "can build the object via a block" do
+      new_user = SeedHelper.find_or_create_resource(User, {email: email}) do
+        User.new(email: "jordan.rules@example.com")
+      end
+
+      expect(new_user).to be_kind_of(User)
+      expect(new_user.email).to eq("jordan.rules@example.com")
+    end
+
     context "without providing additional args" do
       let(:additional_args) { {} }
 

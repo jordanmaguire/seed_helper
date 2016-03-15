@@ -18,11 +18,15 @@ class SeedHelper
   #                                        identify the given resource. EG: {email: "jordan@example.com"}
   # @param [Hash] additional_attributes: A hash of attributes and values that don't identify
   #                                      the given resource, but should be assigned to the new resource.
-  def self.find_or_create_resource(resource_class, identifiable_attributes, additional_attributes={})
+  def self.find_or_create_resource(resource_class, identifiable_attributes, additional_attributes={}, &constructor)
     if resource = find_resource(resource_class, identifiable_attributes)
       resource_already_exists(resource)
     else
-      resource = resource_class.new(identifiable_attributes.merge(additional_attributes))
+      if constructor.present?
+        resource = constructor.call
+      else
+        resource = resource_class.new(identifiable_attributes.merge(additional_attributes))
+      end
       create_resource(resource)
     end
     return resource
