@@ -1,9 +1,11 @@
 require 'colorize'
 require 'seed_helper/version'
+require 'seed_helper/bulk_create'
 require 'seed_helper/output_formatter'
 require 'seed_helper/rake_helper'
 
 class SeedHelper
+  extend SeedHelper::BulkCreate
   extend SeedHelper::OutputFormatter
   extend SeedHelper::RakeHelper
 
@@ -41,21 +43,6 @@ class SeedHelper
       error(message)
     end
     did_save
-  end
-
-  def self.bulk_create(klass, &creation_block)
-    klass_plural = klass.name.pluralize
-
-    if klass.any?
-      resource_already_exists(klass_plural)
-    else
-      begin
-        creation_block.call
-        success("Created #{klass_plural}")
-      rescue
-        error("Failed to create #{klass_plural}: #{$!}")
-      end
-    end
   end
 
 private
