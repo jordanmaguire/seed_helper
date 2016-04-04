@@ -25,7 +25,7 @@ class SeedHelper
       resource_already_exists(resource)
     else
       if constructor.present?
-        resource = constructor.call
+        resource = constructor.call(identifiable_attributes.merge(additional_attributes))
       else
         resource = resource_class.new(identifiable_attributes.merge(additional_attributes))
       end

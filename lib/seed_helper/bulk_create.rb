@@ -19,7 +19,7 @@ module SeedHelper::BulkCreate
       resource_already_exists(message_identifier)
     else
       begin
-        creation_block.call
+        creation_block.call(identifiable_attributes)
         success("Created #{message_identifier}")
       rescue
         error("Failed to create #{message_identifier}: #{$!}")

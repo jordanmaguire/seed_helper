@@ -68,9 +68,8 @@ SeedHelper.find_or_create_resource(User, {email: email}, {password: "password", 
 Sometimes you'll want to create an object using FactoryGirl. You can pass a block to `.find_or_create_resource` to achieve this. EG:
 
 ```ruby
-email = "admin@example.com"
-SeedHelper.find_or_create_resource(User, {email: email}) do
-  FactoryGirl.build(:user, :admin, :with_profile_picture, email: email, password: "Alligator8")
+SeedHelper.find_or_create_resource(User, {email: "admin@example.com"}, {password: "Alligator8"}) do |attributes|
+  FactoryGirl.build(:user, :admin, :with_profile_picture, attributes)
 end
 ```
 
@@ -95,8 +94,7 @@ If you want to bulk create some associated objects for a given object, you can p
 
 ```ruby
 Client.all.each do |client|
-  client_attributes = {client_id: client.id}
-  SeedHelper.bulk_create(User, client_attributes) do
+  SeedHelper.bulk_create(User, {client_id: client.id}) do |client_attributes|
     FactoryGirl.create_list(:user, 5, client_attributes)
   end
 end
