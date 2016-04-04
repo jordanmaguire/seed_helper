@@ -91,6 +91,16 @@ SeedHelper.bulk_create(MyClass) do
 end
 ```
 
+If you want to bulk create some associated objects for a given object, you can pass a hash of attributes to scope the `.bulk_create` by:
+
+```ruby
+Client.all.each do |client|
+  client_attributes = {client_id: client.id}
+  SeedHelper.bulk_create(User, client_attributes) do
+    FactoryGirl.create_list(:user, 5, client_attributes)
+  end
+end
+
 ## Example: Output
 
 SeedHelper provides multiple methods for showing output that can be used outside of the `create_resource` method:
