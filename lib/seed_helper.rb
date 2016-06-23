@@ -50,17 +50,6 @@ private
   def self.find_resource(resource_class, attributes)
     # Remove symbols from attributes. They cause SQL to get mad.
     cloned_attributes = Hash[ attributes.map { |k, v| [k, v.is_a?(Symbol) ? v.to_s : v] } ]
-    cloned_attributes.delete_if do |key, value|
-      # Can't search for password
-      [:password, :password_confirmation].include?(key) ||
-      # Times are bad for searches
-      value.kind_of?(Time) ||
-      value.kind_of?(Date) ||
-      # As are arrays
-      value.kind_of?(Array) ||
-      # As are Files
-      value.kind_of?(File)
-    end
     # Rails 4
     if resource_class.respond_to?(:find_by)
       return resource_class.find_by(cloned_attributes)
