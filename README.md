@@ -98,6 +98,7 @@ Client.all.each do |client|
     FactoryGirl.create_list(:user, 5, client_attributes)
   end
 end
+```
 
 ## Example: Output
 
