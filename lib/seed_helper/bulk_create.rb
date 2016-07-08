@@ -11,9 +11,10 @@ module SeedHelper::BulkCreate
   # @param [Class] resource_class: The class to create the resource in. EG: User
   # @param [Hash] identifiable_attributes: A hash of attributes and values that can be used to
   #                                        identify the given resource. EG: {email: "jordan@example.com"}
+  # @params [String] output_text: The text to output in the results
   # @params [Proc] creation_block: A block that will create some objects
-  def bulk_create(klass, identifiable_attributes={}, &creation_block)
-    message_identifier = bulk_create_message_identifier(klass, identifiable_attributes)
+  def bulk_create(klass, identifiable_attributes={}, output_text=nil, &creation_block)
+    message_identifier = output_text || bulk_create_message_identifier(klass, identifiable_attributes)
 
     if klass.where(identifiable_attributes).exists?
       resource_already_exists(message_identifier)

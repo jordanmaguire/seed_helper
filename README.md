@@ -100,6 +100,20 @@ Client.all.each do |client|
 end
 ```
 
+You can pass a custom message through:
+
+```ruby
+Client.all.each do |client|
+  SeedHelper.bulk_create(User, {client_id: client.id}, "Users for #{client.name}") do |client_attributes|
+    FactoryGirl.create_list(:user, 5, client_attributes)
+  end
+end
+
+# Users for DeathCorp already exists
+# Created Users for DeathCorp
+# Failed to create Users for DeathCorp
+```
+
 ## Example: Output
 
 SeedHelper provides multiple methods for showing output that can be used outside of the `create_resource` method:

@@ -3,9 +3,10 @@ require 'spec_helper'
 describe SeedHelper::BulkCreate do
 
   describe '#bulk_create' do
-    subject { SeedHelper.bulk_create(User, identifiable_attributes) { User.create(email: email)} }
+    subject { SeedHelper.bulk_create(User, identifiable_attributes, custom_message) { User.create(email: email)} }
 
-    let(:email) { "jordan@example.com" }
+    let(:custom_message) { nil }
+    let(:email)          { "jordan@example.com" }
 
     context "with identifiable_attributes" do
       let(:identifiable_attributes) { {email: email} }
@@ -13,9 +14,20 @@ describe SeedHelper::BulkCreate do
       context "when a User with those attributes already exists" do
         before { User.create!(email: email) }
 
-        it "sends an 'already exists' message" do
-          expect(SeedHelper).to receive(:resource_already_exists).with("Users ({:email=>\"jordan@example.com\"})")
-          subject
+        context "with a custom message" do
+          let(:custom_message) { "Reps 4 Jesus" }
+
+          it "sends an 'already exists' message" do
+            expect(SeedHelper).to receive(:resource_already_exists).with("Reps 4 Jesus")
+            subject
+          end
+        end
+
+        context "without a custom message" do
+          it "sends an 'already exists' message" do
+            expect(SeedHelper).to receive(:resource_already_exists).with("Users ({:email=>\"jordan@example.com\"})")
+            subject
+          end
         end
       end
 
@@ -26,9 +38,20 @@ describe SeedHelper::BulkCreate do
           expect { subject }.to change { User.count }.by(1)
         end
 
-        it "prints a success message" do
-          expect(SeedHelper).to receive(:success).with("Created Users ({:email=>\"jordan@example.com\"})")
-          subject
+        context "with a custom message" do
+          let(:custom_message) { "Reps 4 Jesus" }
+
+          it "prints a success message" do
+            expect(SeedHelper).to receive(:success).with("Created Reps 4 Jesus")
+            subject
+          end
+        end
+
+        context "without a custom message" do
+          it "prints a success message" do
+            expect(SeedHelper).to receive(:success).with("Created Users ({:email=>\"jordan@example.com\"})")
+            subject
+          end
         end
       end
     end
@@ -39,9 +62,20 @@ describe SeedHelper::BulkCreate do
       context "when a User already exists" do
         before { User.create! }
 
-        it "sends an 'already exists' message" do
-          expect(SeedHelper).to receive(:resource_already_exists).with("Users")
-          subject
+        context "with a custom message" do
+          let(:custom_message) { "Reps 4 Jesus" }
+
+          it "sends an 'already exists' message" do
+            expect(SeedHelper).to receive(:resource_already_exists).with("Reps 4 Jesus")
+            subject
+          end
+        end
+
+        context "without a custom message" do
+          it "sends an 'already exists' message" do
+            expect(SeedHelper).to receive(:resource_already_exists).with("Users")
+            subject
+          end
         end
       end
 
@@ -50,9 +84,20 @@ describe SeedHelper::BulkCreate do
           expect { subject }.to change { User.count }.to(1)
         end
 
-        it "prints a success message" do
-          expect(SeedHelper).to receive(:success).with("Created Users")
-          subject
+        context "with a custom message" do
+          let(:custom_message) { "Reps 4 Jesus" }
+
+          it "prints a success message" do
+            expect(SeedHelper).to receive(:success).with("Created Reps 4 Jesus")
+            subject
+          end
+        end
+
+        context "without a custom message" do
+          it "prints a success message" do
+            expect(SeedHelper).to receive(:success).with("Created Users")
+            subject
+          end
         end
       end
     end
